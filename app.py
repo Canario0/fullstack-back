@@ -31,6 +31,7 @@ def post_order():
 
 
 class PizzaSizes(StrEnum):
+    """Pizza size enum"""
     SMALL = 'S'
     MEDIUM = 'M'
     LARGE = 'L'
@@ -47,7 +48,10 @@ def checksize():
     """
     size = request.form.get("size", "")
     if size not in PizzaSizes:
-        return Response(f'"{size}" is not a valid pizza size.', 400, {'Access-Control-Allow-Origin': '*'})
+        return Response(
+            f'"{size}" is not a valid pizza size.',
+            400,
+            {'Access-Control-Allow-Origin': '*'})
     if size == PizzaSizes.SMALL:
         message = 'No disponible'
     else:
