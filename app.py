@@ -4,7 +4,8 @@ Backend Entrypoint
     Functions:
         post_order() -> BaseResponse
 """
-from flask import Flask, redirect, request
+from enum import StrEnum
+from flask import Flask, Response, redirect, request
 from dotenv import dotenv_values
 from src import guardar_pedido
 
@@ -27,3 +28,28 @@ def post_order():
     print(f'{nombre} {apellidos}')
     guardar_pedido(nombre, apellidos)
     return redirect(REDIRECT_URI, code=302)
+
+
+class PizzaSizes(StrEnum):
+    SMALL = 'S'
+    MEDIUM = 'M'
+    LARGE = 'L'
+    EXTRA_LARGE = 'XXL'
+
+
+@app.post("/checksize")
+def checksize():
+    """
+    HTTP controller for checking piza size availability
+
+        Returns:
+            Response: With the availability. It can be 'Disponible' or 'No disponible'.
+    """
+    size = request.form.get("size", "")
+    if size not in PizzaSizes:
+        return Response(f'"{size}" is not a valid pizza size.', 400, {'Access-Control-Allow-Origin': '*'})
+    if size == PizzaSizes.SMALL:
+        message = 'No disponible'
+    else:
+        message = 'Disponible'
+    return Response(message, 200, {'Access-Control-Allow-Origin': '*'})
