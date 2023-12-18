@@ -20,7 +20,7 @@ jobs:
       - name: Pylint
         uses: VaultVulp/action-pipenv@v2.0.1
         with:
-          command: run pylint `ls -R|grep .py$|xargs`
+          command: run pylint $(find . -name "*.py" | xargs)
   test:
     runs-on: ubuntu-latest
     steps:
