@@ -5,32 +5,33 @@ on:
   pull_request:
   branches: [ main ]
   workflow_dispatch:
+
 jobs:
   lint:
     runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
+    steps:
+      - uses: actions/checkout@v2
 
-        - name: Install dependencies
-          uses: VaultVulp/action-pipenv@v2.0.1
-          with:
-          command: install -d
+      - name: Install dependencies
+        uses: VaultVulp/action-pipenv@v2.0.1
+        with:
+        command: install -d
 
-        - name: Pylint
-          uses: VaultVulp/action-pipenv@v2.0.1
-          with:
-          command: run pylint `ls -R|grep .py$|xargs`
+      - name: Pylint
+        uses: VaultVulp/action-pipenv@v2.0.1
+        with:
+        command: run pylint `ls -R|grep .py$|xargs`
   test:
     runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
+    steps:
+      - uses: actions/checkout@v2
 
-        - name: Install dependencies
-          uses: VaultVulp/action-pipenv@v2.0.1
-          with:
-          command: install -d
+      - name: Install dependencies
+        uses: VaultVulp/action-pipenv@v2.0.1
+        with:
+        command: install -d
 
-        - name: Pytest
-          uses: VaultVulp/action-pipenv@v2.0.1
-          with:
-          command: run pytest `ls -R|grep test_*.py$|xargs`
+      - name: Pytest
+        uses: VaultVulp/action-pipenv@v2.0.1
+        with:
+        command: run pytest `ls -R|grep test_*.py$|xargs`
