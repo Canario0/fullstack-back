@@ -4,7 +4,7 @@ Persist User data into a file.
     Functions:
         guardar_pedido: (nombre: str, appellidos: str) -> None
 """
-OUTPUT_FILE = 'prueba.txt'
+OUTPUT_FILE = 'pedidos.txt'
 
 
 def guardar_pedido(nombre: str, apellidos: str) -> None:
